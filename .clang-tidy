@@ -1,0 +1,47 @@
+---
+# clang-tidy configuration: for checking naming conventions
+
+# Checks to enable. '-*' disables all, then 'readability-identifier-naming' enables just that one.
+Checks: '-*,readability-identifier-naming'
+
+# Provide detailed options for the readability-identifier-naming check.
+CheckOptions:
+  # Function names: lower camel case
+  - key: readability-identifier-naming.FunctionCase
+    value: camelBack
+  # Struct/Class/Union names: upper camel case (PascalCase)
+  - key: readability-identifier-naming.ClassCase
+    value: CamelCase
+  - key: readability-identifier-naming.StructCase
+    value: CamelCase
+  - key: readability-identifier-naming.UnionCase
+    value: CamelCase
+  # Private member variables: lower camel case with a trailing underscore
+  - key: readability-identifier-naming.PrivateMemberCase
+    value: camelBack
+  - key: readability-identifier-naming.PrivateMemberSuffix
+    value: '_'
+  # Public/Protected member variables: lower camel case
+  - key: readability-identifier-naming.PublicMemberCase
+    value: camelBack
+  # Variables (local and global): lower camel case
+  - key: readability-identifier-naming.VariableCase
+    value: camelBack
+  # Parameter names: lower camel case
+  - key: readability-identifier-naming.ParameterCase
+    value: camelBack
+  # Enum names: upper camel case
+  - key: readability-identifier-naming.EnumCase
+    value: CamelCase
+  # Enum constant names: upper camel case
+  - key: readability-identifier-naming.EnumConstantCase
+    value: CamelCase
+  # Namespace names: lowercase with underscores
+  - key: readability-identifier-naming.NamespaceCase
+    value: lower_case
+  # Type alias (using, typedef) names: upper camel case
+  - key: readability-identifier-naming.TypeAliasCase
+    value: CamelCase
+  - key: readability-identifier-naming.TypedefCase
+    value: CamelCase
+...

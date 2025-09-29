@@ -1,0 +1,123 @@
+#---------------------------------------------------
+# clang-format script for lowerCamelCase, 120-char line limit, and maximum alignment.
+# Note: lowerCamelCase enforcement is handled by clang-tidy, not clang-format.
+#---------------------------------------------------
+
+# Language: C++
+Language: Cpp
+
+# 1. Based on an existing code style (e.g., LLVM, Google, Chromium, Mozilla, WebKit).
+# We start with the LLVM style and then apply custom modifications.
+BasedOnStyle: LLVM
+
+# 2. Maximum number of characters per line.
+# Set the column limit to 120.
+ColumnLimit: 120
+
+#---------------------------------------------------
+# 3. Settings to maximize code alignment.
+#---------------------------------------------------
+
+# Align consecutive assignment operators (=, +=, -=, *=, etc.).
+# This makes blocks of variable assignments very neat.
+AlignConsecutiveAssignments: true
+
+# Align consecutive bit field declarations (:).
+# struct S {
+#   int a   : 1;
+#   int bbb : 12;
+# };
+AlignConsecutiveBitFields: true
+
+# Align consecutive declarations.
+# This aligns variable names.
+# int         a = 1;
+# std::string b = "hello";
+AlignConsecutiveDeclarations: true
+
+# Align consecutive macro definitions.
+# #define SHORT_NAME       42
+# #define LONGER_NAME      0x007f
+AlignConsecutiveMacros: true
+
+# Align operands (in binary and ternary operators).
+# This improves readability when an expression spans multiple lines.
+# int result = a_very_long_variable_name +
+#              another_very_long_variable_name;
+AlignOperands: true
+
+# Align trailing comments.
+# int a; // This is a comment
+# int b; // This is another one
+AlignTrailingComments: true
+
+# Align parameters after open brackets ( (, <, [ ).
+# someLongFunction(argument1,
+#                  argument2);
+AlignAfterOpenBracket: Align
+
+# Pointer and reference alignment style.
+# Prefers left alignment (e.g., int* p), but can be set to Right or Middle based on team preference.
+# Left:  string* s;
+# Right: string *s;
+# Middle:string * s;
+PointerAlignment: Left
+
+# Align 'using' declarations.
+AlignUsingDeclarations: true
+
+# Align colons in case statements.
+# switch (var) {
+#   case 1  : ...; break;
+#   case 100: ...; break;
+# }
+AlignCaseLabels: true
+
+# Allow aligning C++11 braced lists across multiple lines.
+# MyType my_variable = {
+#     a, b, c,
+#     d, e, f
+# };
+Cpp11BracedListStyle: true
+
+#---------------------------------------------------
+# Other recommended settings for aesthetics and readability.
+#---------------------------------------------------
+
+# Indentation width.
+IndentWidth: 4
+
+# Use spaces for indentation.
+UseTab: Never
+
+# Packing of function parameters.
+# If the total length of parameters exceeds the column limit, prefer one parameter per line.
+# This aids alignment when using AlignAfterOpenBracket.
+BinPackParameters: false
+BinPackArguments: false
+
+# Allow short functions to be placed on a single line.
+AllowShortFunctionsOnASingleLine: All
+
+# Brace wrapping rules.
+# The opening brace for functions, classes, namespaces, etc., goes on a new line.
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterClass: true
+  AfterControlStatement: Stroustrup
+  AfterEnum: true
+  AfterFunction: true
+  AfterNamespace: true
+  AfterStruct: true
+  AfterUnion: true
+  AfterExternBlock: true
+  BeforeCatch: true
+  BeforeElse: true
+  IndentBraces: false
+  SplitEmptyFunction: true
+  SplitEmptyRecord: true
+  SplitEmptyNamespace: true
+
+# Newline for C++ constructor initializer lists.
+# If the list is too long, each initializer gets its own line.
+BreakConstructorInitializers: BeforeColon
