@@ -18,6 +18,10 @@ MainWindow::~MainWindow() {
     delete ui;
 }
 
+void MainWindow::onActionExitTriggered() {
+    QApplication::quit();
+}
+
 void MainWindow::initGui() {
     initFileMenu();
 }
@@ -30,4 +34,8 @@ void MainWindow::initFileMenu() {
     fileMenu->addAction(ActionManager::instance().action(ActionClose));
     fileMenu->addAction(ActionManager::instance().action(ActionSelectImage));
     fileMenu->addAction(ActionManager::instance().action(ActionShowInExplorer));
+    fileMenu->addSeparator();
+    fileMenu->addAction(ActionManager::instance().action(ActionExit));
+
+    connect(&ActionManager::instance(), &ActionManager::requestExit, this, &MainWindow::onActionExitTriggered);
 }

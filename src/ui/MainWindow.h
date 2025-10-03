@@ -24,6 +24,8 @@ public:
 
     ~MainWindow() override;
 
+private slots:
+    void onActionExitTriggered();
 private:
     void initGui();
     void initFileMenu();
