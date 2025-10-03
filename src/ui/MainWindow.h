@@ -25,10 +25,11 @@ public:
     ~MainWindow() override;
 
 private slots:
-    void onActionExitTriggered();
+    void onExit();
 private:
     void initGui();
     void initFileMenu();
+    void initNavigationMenu();
 
     Ui::MainWindow *ui;
 };

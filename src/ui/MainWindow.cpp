@@ -7,7 +7,7 @@
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
 #include "../ActionManager.h"
-
+#include "ContentWidget.h"
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
@@ -18,16 +18,18 @@ MainWindow::~MainWindow() {
     delete ui;
 }
 
-void MainWindow::onActionExitTriggered() {
+void MainWindow::onExit() {
     QApplication::quit();
 }
 
 void MainWindow::initGui() {
     initFileMenu();
+    initNavigationMenu();
+    setCentralWidget(new ContentWidget(this));
 }
 
 void MainWindow::initFileMenu() {
-    QMenu *fileMenu = new QMenu(tr("&File"),this);
+    QMenu *fileMenu = new QMenu(tr("&File"), this);
     ui->menubar->addMenu(fileMenu);
     fileMenu->addAction(ActionManager::instance().action(ActionOpenFile));
     fileMenu->addAction(ActionManager::instance().action(ActionOpenFolder));
@@ -37,5 +39,21 @@ void MainWindow::initFileMenu() {
     fileMenu->addSeparator();
     fileMenu->addAction(ActionManager::instance().action(ActionExit));
 
-    connect(&ActionManager::instance(), &ActionManager::requestExit, this, &MainWindow::onActionExitTriggered);
+    connect(&ActionManager::instance(), &ActionManager::requestExit, this, &MainWindow::onExit);
+}
+
+void MainWindow::initNavigationMenu() {
+    QMenu *navigationMenu = new QMenu(tr("&Navigation"), this);
+    ui->menubar->addMenu(navigationMenu);
+
+    navigationMenu->addAction(ActionManager::instance().action(ActionNextImage));
+    navigationMenu->addAction(ActionManager::instance().action(ActionPreviousImage));
+    navigationMenu->addAction(ActionManager::instance().action(ActionFirstImage));
+    navigationMenu->addAction(ActionManager::instance().action(ActionLastImage));
+    navigationMenu->addAction(ActionManager::instance().action(ActionPrevious10Image));
+    navigationMenu->addAction(ActionManager::instance().action(ActionNext10Image));
+    navigationMenu->addAction(ActionManager::instance().action(ActionNextRandImage));
+    navigationMenu->addAction(ActionManager::instance().action(ActionPreviousRandImage));
+    navigationMenu->addAction(ActionManager::instance().action(ActionPreviousFolderOrCompression));
+    navigationMenu->addAction(ActionManager::instance().action(ActionNextFolderOrCompression));
 }
