@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>898</width>
+    <height>682</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>898</width>
+     <height>23</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionMenu_File_OpenImage">
+   <property name="text">
+    <string>Menu.File.OpenImage</string>
+   </property>
+  </action>
+  <action name="actionMenu_File_OpenDir">
+   <property name="text">
+    <string>Menu.File.OpenDir</string>
+   </property>
+  </action>
+  <action name="actionOpenFile">
+   <property name="text">
+    <string>Menu.File.Close</string>
+   </property>
+  </action>
+  <action name="actionMenu_File_Select">
+   <property name="text">
+    <string>Menu.File.Select</string>
+   </property>
+  </action>
+  <action name="actionMenu_File_Exit">
+   <property name="text">
+    <string>Menu.File.Exit</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -14,7 +14,12 @@ find_package(Qt6 COMPONENTS
         Widgets
         REQUIRED)
 
-add_executable(OpenView src/main.cpp)
+add_executable(OpenView src/main.cpp
+        src/ui/MainWindow.cpp
+        src/ui/MainWindow.h
+        src/ui/MainWindow.ui
+        src/ActionManager.cpp
+        src/ActionManager.h)
 target_link_libraries(OpenView
         Qt::Core
         Qt::Gui
