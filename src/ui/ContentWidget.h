@@ -36,6 +36,7 @@ private:
     void connectActions();
     void evictCache();
     void createCacheJob(int centerIndex);
+    void updateImage(const QImage &image);
     void resizeEvent(QResizeEvent *event) override;
     Ui::ContentWidget *ui;
     std::unique_ptr<ContentWidgetPrivate> d;

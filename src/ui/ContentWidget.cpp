@@ -16,7 +16,8 @@
 #include <QThreadPool>
 
 ContentWidget::ContentWidget(QWidget *parent) : QWidget(parent), ui(new Ui::ContentWidget),
-                                                d(std::make_unique<ContentWidgetPrivate>()) { // Use PIMPL idiom
+                                                d(std::make_unique<ContentWidgetPrivate>()) {
+    // Use PIMPL idiom
     ui->setupUi(this);
     initGui();
     connectActions();
@@ -84,25 +85,12 @@ void ContentWidget::onCached(int index) {
         return;
     }
 
-    // Display the image
-    d->pixmapItem->setPixmap(QPixmap::fromImage(image));
-    d->pixmapItem->setScale(1.0);
-
-    // Center the image in the graphics view
-    QRectF sceneRect = d->scene->sceneRect();
-    QRectF itemRect = d->pixmapItem->boundingRect();
-    qreal scaledItemWidth = itemRect.width() * d->pixmapItem->scale();
-    qreal scaledItemHeight = itemRect.height() * d->pixmapItem->scale();
-
-    qreal x = (sceneRect.width() - scaledItemWidth) / 2.0;
-    qreal y = (sceneRect.height() - scaledItemHeight) / 2.0;
-
-    d->pixmapItem->setPos(x, y);
+    updateImage(image);
 }
 
 // Slot to navigate to the next image
 void ContentWidget::onNext() {
-    if ( d->fileList->isEmpty() || d->currentIndex >= d->fileList->size() - 1) {
+    if (d->fileList->isEmpty() || d->currentIndex >= d->fileList->size() - 1) {
         return; // Do nothing if at the end of the list
     }
     onCached(d->currentIndex + 1);
@@ -111,7 +99,7 @@ void ContentWidget::onNext() {
 
 // Slot to navigate to the previous image
 void ContentWidget::onPrevious() {
-    if ( d->fileList->isEmpty() || d->currentIndex <= 0) {
+    if (d->fileList->isEmpty() || d->currentIndex <= 0) {
         return; // Do nothing if at the beginning of the list
     }
     onCached(d->currentIndex - 1);
@@ -180,7 +168,8 @@ void ContentWidget::evictCache() {
         // Remove the furthest item
         if (furthestKey != -1) {
             d->hashPersistentCache.remove(furthestKey);
-            qDebug() << "Evicted image at index" << furthestKey << "from cache. New size:" << d->hashPersistentCache.size();
+            qDebug() << "Evicted image at index" << furthestKey << "from cache. New size:" << d->hashPersistentCache.
+                    size();
         } else {
             break; // Should not happen if size > maxCacheSize, but as a safeguard
         }
@@ -225,10 +214,21 @@ void ContentWidget::createCacheJob(int centerIndex) {
     QThreadPool::globalInstance()->start(job);
 }
 
+void ContentWidget::updateImage(const QImage &image) {
+    if (image.isNull()) {
+        return;
+    }
+    d->pixmapItem->setPixmap(QPixmap::fromImage(image));
+    d->scene->setSceneRect(d->pixmapItem->boundingRect());
+    d->view->fitInView(d->pixmapItem, Qt::KeepAspectRatio);
+}
+
 // Handle widget resize events
 void ContentWidget::resizeEvent(QResizeEvent *event) {
     QWidget::resizeEvent(event);
-    // Ensure the graphics view and scene resize with the widget
     d->view->resize(this->size());
-    d->scene->setSceneRect(d->view->rect());
+    if (d->pixmapItem->pixmap().isNull()) {
+        return;
+    }
+    d->view->fitInView(d->pixmapItem, Qt::KeepAspectRatio);
 }
