@@ -32,10 +32,8 @@ signals:
 private:
     QString startPath;
     QStringList fileList;
-    QHash<int, QImage> cacheImages;
     int currIndex;
     std::mutex mutex;
-    int cacheWindow = 10;
     bool isEnd = false;
     bool isChanged = false;
     std::condition_variable conv;
