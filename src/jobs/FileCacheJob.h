@@ -4,35 +4,29 @@
 
 #ifndef OPENVIEW_FILECACHEJOB_H
 #define OPENVIEW_FILECACHEJOB_H
-#include "BaseCacheJob.h"
+#include <QObject>
+#include <QRunnable>
+#include <QStringList>
+#include <QImage>
+#include <QHash>
 
 namespace Jobs {
-    class FileCacheJob : public Jobs::BaseCacheJob {
+
+    class FileCacheJob : public QObject, public QRunnable {
         Q_OBJECT
 
     public:
-        FileCacheJob(QString filePath, QObject *parent = nullptr);
+        explicit FileCacheJob(const std::shared_ptr<QStringList>& fileList, QList<int> indicesToLoad, QObject *parent = nullptr);
 
         void run() override;
 
-        void next() override;
-
-        void prev() override;
-
-        void index(int index) override;
-
-        bool canNext() override;
-
-        bool canPrev() override;
-
-        bool canIndex(int index) override;
-
+    signals:
+        void imagesReady(QHash<int, QImage> newImages);
+        void error(const QString &errorMessage);
 
     private:
-        void cacheIndex(int index) override;
-
-        QString startPath;
-        QStringList listPaths;
+        std::shared_ptr<QStringList> m_fileList;
+        QList<int> m_indicesToLoad;
     };
-}
+};
 #endif //OPENVIEW_FILECACHEJOB_H

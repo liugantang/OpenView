@@ -12,6 +12,7 @@ find_package(Qt6 COMPONENTS
         Core
         Gui
         Widgets
+        Concurrent
         REQUIRED)
 
 add_executable(OpenView src/main.cpp
@@ -24,8 +25,6 @@ add_executable(OpenView src/main.cpp
         src/ui/ContentWidget.h
         src/ui/ContentWidget.ui
         src/ui/ContentWidgetPrivate.h
-        src/jobs/BaseCacheJob.cpp
-        src/jobs/BaseCacheJob.h
         src/jobs/FileCacheJob.cpp
         src/jobs/FileCacheJob.h
         src/FormatUtil.cpp
@@ -40,5 +39,6 @@ target_link_libraries(OpenView
         Qt::Core
         Qt::Gui
         Qt::Widgets
+        Qt::Concurrent
 )
 

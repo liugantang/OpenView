@@ -26,12 +26,16 @@ public:
     ~ContentWidget() override;
 private slots:
     void onOpenFile();
-    void onCached(QPixmap pixmap);
+    void onCached(int index);
     void onNext();
     void onPrevious();
+    void onJobError(QString errMsg);
+    void onCacheReady(QHash<int, QImage> cacheImages);
 private:
     void initGui();
     void connectActions();
+    void evictCache();
+    void createCacheJob(int centerIndex);
     void resizeEvent(QResizeEvent *event) override;
     Ui::ContentWidget *ui;
     std::unique_ptr<ContentWidgetPrivate> d;
