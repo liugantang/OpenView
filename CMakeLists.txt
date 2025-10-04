@@ -25,12 +25,12 @@ add_executable(OpenView src/main.cpp
         src/ui/ContentWidget.h
         src/ui/ContentWidget.ui
         src/ui/ContentWidgetPrivate.h
-        src/jobs/FileCacheJob.cpp
-        src/jobs/FileCacheJob.h
         src/FormatUtil.cpp
         src/FormatUtil.h
         src/AppConfiguration.cpp
         src/AppConfiguration.h
+        src/jobs/ImageFileCacheJob.cpp
+        src/jobs/ImageFileCacheJob.h
 )
 
 include_directories(src/jobs)
